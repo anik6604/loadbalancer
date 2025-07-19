@@ -1,6 +1,9 @@
 #pragma once
 #include "Request.h"
 
+/**
+ * @brief Represents a web server that can process requests.
+ */
 class WebServer {
 private:
     bool busy;
