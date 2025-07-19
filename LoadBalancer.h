@@ -3,6 +3,7 @@
 #include <queue>
 #include <random>
 #include "WebServer.h"
+#include <fstream>
 #include "Request.h"
 
 /**
@@ -31,4 +32,6 @@ public:
     void processServers();         
     void logStatus() const;        
     std::string randomIP();       
+    std::ofstream detailed_log;
+
 };

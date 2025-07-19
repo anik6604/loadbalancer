@@ -17,6 +17,7 @@ LoadBalancer::LoadBalancer(int num_servers, int cycles, int min_task, int max_ta
       time_dist(min_task_time, max_task_time),
       ip_octet(0, 255)
 {
+    detailed_log.open("log.txt");
     for (int i = 0; i < num_servers; ++i) {
         servers.push_back(new WebServer());
     }
@@ -37,6 +38,7 @@ LoadBalancer::~LoadBalancer() {
     for (auto server : servers) {
         delete server;
     }
+    detailed_log.close();
 }
 
 /**
@@ -59,6 +61,9 @@ void LoadBalancer::generateRequest() {
     req.process_time = time_dist(rng);
     req.arrival_time = current_time;
     request_queue.push(req);
+    detailed_log << "[Cycle " << current_time << "] New Request — From: " 
+             << req.ip_in << " To: " << req.ip_out 
+             << " | Time: " << req.process_time << " cycles\n";
 }
 
 /**
@@ -70,6 +75,9 @@ void LoadBalancer::assignRequests() {
             Request req = request_queue.front();
             request_queue.pop();
             server->assignRequest(req);
+            detailed_log << "[Cycle " << current_time << "] Assigned to Server — From: " 
+                << req.ip_in << " To: " << req.ip_out 
+                << " | Duration: " << req.process_time << " cycles\n";
         }
     }
 }
