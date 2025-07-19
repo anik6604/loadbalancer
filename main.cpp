@@ -2,13 +2,13 @@
 #include "LoadBalancer.h"
 
 int main() {
-    int num_servers=10;
-    int num_cycles=100000;
+    int servers, cycles;
+    std::cout << "Enter number of servers: ";
+    std::cin >> servers;
+    std::cout << "Enter number of cycles: ";
+    std::cin >> cycles;
 
-    std::cout << "Starting Load Balancer Simulation\n";
-    std::cout << "Servers: " << num_servers << ", Cycles: " << num_cycles << "\n";
-
-    LoadBalancer lb(num_servers, num_cycles);
+    LoadBalancer lb(servers, cycles);
     lb.run();
 
     return 0;
