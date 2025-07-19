@@ -82,3 +82,41 @@ void LoadBalancer::processServers() {
         server->processCycle();
     }
 }
+/**
+ * @brief Runs the main simulation loop for the configured number of clock cycles.
+ */
+void LoadBalancer::run() {
+    std::cout << "Starting simulation for " << total_cycles << " cycles...\n";
+    std::cout << "Initial queue size: " << initial_queue_size << "\n";
+
+    for (current_time = 0; current_time < total_cycles; ++current_time) {
+        // Generate a new request every 3 cycles
+        if (current_time % 3 == 0) {
+            generateRequest();
+        }
+
+        assignRequests();
+        processServers();
+    }
+
+    logStatus();
+}
+
+/**
+ * @brief Logs key stats at the end of the simulation.
+ */
+void LoadBalancer::logStatus() const {
+    int active_servers = 0;
+    int idle_servers = 0;
+
+    for (const auto& server : servers) {
+        if (server->isBusy()) active_servers++;
+        else idle_servers++;
+    }
+
+    std::cout << "Simulation complete.\n";
+    std::cout << "Final queue size: " << request_queue.size() << "\n";
+    std::cout << "Task time range: " << min_task_time << " - " << max_task_time << "\n";
+    std::cout << "Active servers at end: " << active_servers << "\n";
+    std::cout << "Idle servers at end: " << idle_servers << "\n";
+}
