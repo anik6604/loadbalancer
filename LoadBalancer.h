@@ -30,8 +30,7 @@ public:
     void generateRequest();        
     void assignRequests();        
     void processServers();         
-    void logStatus() const;        
+    void logStatus();        
     std::string randomIP();       
     std::ofstream detailed_log;
-
 };

@@ -113,7 +113,7 @@ void LoadBalancer::run() {
 /**
  * @brief Logs key stats at the end of the simulation.
  */
-void LoadBalancer::logStatus() const {
+void LoadBalancer::logStatus() {
     int active_servers = 0;
     int idle_servers = 0;
 
@@ -127,4 +127,12 @@ void LoadBalancer::logStatus() const {
     std::cout << "Task time range: " << min_task_time << " - " << max_task_time << "\n";
     std::cout << "Active servers at end: " << active_servers << "\n";
     std::cout << "Idle servers at end: " << idle_servers << "\n";
+    detailed_log << "\n================== Simulation Summary ==================\n";
+    detailed_log << "Total Cycles: " << total_cycles << "\n";
+    detailed_log << "Initial Queue Size: " << initial_queue_size << "\n";
+    detailed_log << "Final Queue Size: " << request_queue.size() << "\n";
+    detailed_log << "Task Time Range: " << min_task_time << " - " << max_task_time << "\n";
+    detailed_log << "Active Servers at End: " << active_servers << "\n";
+    detailed_log << "Idle Servers at End: " << idle_servers << "\n";
+    detailed_log << "========================================================\n";
 }
